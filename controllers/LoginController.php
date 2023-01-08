@@ -45,12 +45,15 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
         ]);
     }
 
-    public static function reestablecer(){
-        echo "Desde reestablecer";
-
+    public static function reestablecer(Router $router){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') { //Para el post del Login
             
         }
+
+        //Muestra la vista
+        $router->render('auth/reestablecer', [
+            'titulo' => 'Reset password'
+        ]);
     }
 
     public static function mensaje(){
