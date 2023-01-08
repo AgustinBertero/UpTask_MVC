@@ -56,12 +56,17 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
         ]);
     }
 
-    public static function mensaje(){
-        echo "Desde mensaje";
+    public static function mensaje(Router $router){
+
+        $router->render('auth/mensaje', [
+            'titulo' => 'Account successfully created'
+        ]);
     }
 
-    public static function confirmar(){
-        echo "Desde confirmar";
+    public static function confirmar(Router $router){
+        $router->render('auth/confirmar', [
+            'titulo' => 'Confirm your UpTask account'
+        ]);
     }
 }
 
