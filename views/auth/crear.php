@@ -3,7 +3,7 @@
     <div class="contenedor-sm">
         <p class="descripcion-pagina">Create your account</p>
 
-            <form action="/" class="formulario" method="POST" >
+            <form action="/crear" class="formulario" method="POST" >
                 <div class="campo">
                     <label for="nombre">Name</label>
                     <input 
