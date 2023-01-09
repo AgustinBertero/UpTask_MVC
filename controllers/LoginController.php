@@ -1,6 +1,7 @@
 <?php 
 namespace Controllers;
 
+use Model\Usuario;
 use MVC\Router;
 
 class LoginController { //Controlador de authenticacion que tiene cada metodo adentro 
@@ -22,13 +23,21 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
     }
 
     public static function crear(Router $router){
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') { //Para el post del Login
-                
+
+        $usuario = new Usuario;
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') { //Para el post del Login
+                $usuario->sincronizar($_POST);
+
+                $alertas = $usuario->validarNuevaCuenta();
+
+                debuguear($alertas);
             }
 
             //Render a la vista
             $router->render('auth/crear', [ //Muestro la vista de crear
-                'titulo' => 'Create your account'
+                'titulo' => 'Create your account',
+                'usuario' => $usuario
             ]); 
 
        
