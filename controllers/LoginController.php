@@ -76,13 +76,20 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
     }
 
     public static function olvide(Router $router){
+        $alertas = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') { //Para el post del Login
-            
+            $usuario = new Usuario($_POST);
+            $alertas = $usuario->validarEmail();
+
+            if (empty($alertas)) {
+                # code...
+            }
         }
 
         //Muestra la vista
         $router->render('auth/olvide', [
-            'titulo' => 'Forgot my password'
+            'titulo' => 'Forgot my password',
+            'alertas' => $alertas
         ]);
     }
 
