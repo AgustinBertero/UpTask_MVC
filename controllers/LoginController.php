@@ -105,6 +105,31 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
     }
 
     public static function confirmar(Router $router){
+
+        $token = s($_GET['token']);
+
+       if (!$token) header('Location: /');
+
+       //Econtrar al usuario con este token
+       $usuario = Usuario::where('token', $token);
+
+       if (empty($usuario)) {
+        //No se encontro usuario con ese token
+            Usuario::setAlerta('error', 'Invalid Token');
+       } else {
+        //Confirmar la cuenta
+            $usuario->confirmado = 1;
+            $usuario->token = null;
+            unset($usuario->passoword2);
+
+            //Guardar en la BD
+            $usuario->guardar();
+
+            Usuario::setAlerta('exito', 'Account successfully verified');
+       }
+
+       $alertas = Usuario::getAlertas();
+
         $router->render('auth/confirmar', [
             'titulo' => 'Confirm your UpTask account'
         ]);
