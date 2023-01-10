@@ -33,11 +33,27 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
                 if (empty($alertas)) { //Si alertas esta vacio = Introdujo bien los datos de registro
                     //Comprobamos si el usuario existe
                     $existeUsuario = Usuario::where('email', $usuario->email); 
+                    
                     if ($existeUsuario) {
                         Usuario::setAlerta('error', 'User is already registered');
                         $alertas = Usuario::getAlertas();
                     } else { //Si no existe, lo creamos
+                        //Hashear el password
+                        $usuario->hashPassword();
+
+                        //Eliminar password2
+                        unset($usuario->password2);
+
+                        //Generar el token 
+                        $usuario->crearToken();
+
                         //Crear un nuevo usuario
+                        $resultado =  $usuario->guardar();
+
+                        if ($resultado) {
+                            header('Location: /mensaje');
+                        }
+
                         
                     }
                 }
@@ -88,6 +104,9 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
             'titulo' => 'Confirm your UpTask account'
         ]);
     }
+
+    
+
 }
 
 
