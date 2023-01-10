@@ -87,19 +87,27 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
 
                 if ($usuario && $usuario->confirmado) {
                    //Generar un nuevo Token
-
+                    $usuario->crearToken();
+                    unset($usuario->password2);
 
                    //Actualizar el usuario
+                   $usuario->guardar();
 
                    //Enviar el email 
+                   $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
+                   $email->enviarInstrucciones();
+
 
                    //Imprimir la alerta
+                   Usuario::setAlerta('exito', 'We have sent the instructions to your email');
                 } else {
                     Usuario::setAlerta('error', 'The user does not exist or is not confirmed ');
-                    $alertas = Usuario::getAlertas();
+                    
                 }
             }
         }
+        //Muestro las alertas
+        $alertas = Usuario::getAlertas();
 
         //Muestra la vista
         $router->render('auth/olvide', [
