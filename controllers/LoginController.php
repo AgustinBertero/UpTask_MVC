@@ -82,7 +82,22 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
             $alertas = $usuario->validarEmail();
 
             if (empty($alertas)) {
-                # code...
+                //Buscar el Usuario
+                $usuario = Usuario::where('email', $usuario->email);
+
+                if ($usuario && $usuario->confirmado) {
+                   //Generar un nuevo Token
+
+
+                   //Actualizar el usuario
+
+                   //Enviar el email 
+
+                   //Imprimir la alerta
+                } else {
+                    Usuario::setAlerta('error', 'The user does not exist or is not confirmed ');
+                    $alertas = Usuario::getAlertas();
+                }
             }
         }
 
