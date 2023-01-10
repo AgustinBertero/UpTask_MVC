@@ -29,6 +29,19 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
         if ($_SERVER['REQUEST_METHOD'] === 'POST') { //Para el post del Login
                 $usuario->sincronizar($_POST);
                 $alertas = $usuario->validarNuevaCuenta();
+            
+                if (empty($alertas)) { //Si alertas esta vacio = Introdujo bien los datos de registro
+                    //Comprobamos si el usuario existe
+                    $existeUsuario = Usuario::where('email', $usuario->email); 
+                    if ($existeUsuario) {
+                        Usuario::setAlerta('error', 'User is already registered');
+                        $alertas = Usuario::getAlertas();
+                    } else { //Si no existe, lo creamos
+                        //Crear un nuevo usuario
+                        
+                    }
+                }
+
             }
 
             //Render a la vista
