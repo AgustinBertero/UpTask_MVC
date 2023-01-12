@@ -10,10 +10,15 @@ class DashboardController {
 
         session_start(); //Iniciamos sesion en el dashboard para traer los datos del usuario
         isAuth();
+
+        $id = $_SESSION['id'];
+        $proyectos = Proyecto::belongsTo('propietarioId',$id );
+
         
         // Vista del dashboard index
         $router->render('dashboard/index', [
-            'titulo' => 'Projects'
+            'titulo' => 'Projects',
+            'proyectos' => $proyectos
         ]);
 
     }
