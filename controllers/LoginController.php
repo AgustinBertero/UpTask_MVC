@@ -6,15 +6,32 @@ use Model\Usuario;
 use MVC\Router;
 
 class LoginController { //Controlador de authenticacion que tiene cada metodo adentro 
+    
     public static function login(Router $router){
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') { //Para el post del Login
-            
-        }
+        $alertas = [];
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') { //Para el post del Login
+            $usuario = new Usuario($_POST);
+            $alertas = $usuario->validarLogin();
+
+            if (empty($alertas)) {
+                //Verificar que el usuario exista
+                $usuario = Usuario::where('email', $usuario->email);
+            
+                if (!$usuario || !$usuario->confirmado ) {
+                    Usuario::setAlerta('error', 'The user dont exist or is not confirmed');
+               
+                }
+            }
+    }
+
+
+        $alertas = Usuario::getAlertas();
         //Render a la vista
         $router->render('auth/login', [ //Muestro la vista de login
-            'titulo' => 'Log in'
-        ]); 
+            'titulo' => 'Log in',
+            'alertas' => $alertas
+        ]);  
 
     }
 
