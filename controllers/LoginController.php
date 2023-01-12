@@ -53,8 +53,12 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
 
     }
 
-    public static function logout(){
-        echo "Desde logout";
+    public static function logout(){ 
+        session_start(); //Traemos la info de la sesion
+        $_SESSION = []; 
+        header('Location: /'); //Redireccionamos al Login
+
+
 
     }
 

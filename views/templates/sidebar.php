@@ -3,7 +3,7 @@
 
 
     <nav class="sidebar-nav"> 
-        <a href="/dashboard">Projects </a>
+        <a  class="<?php echo ($titulo === 'Projects') ? 'activo' : ''; ?>" href="/dashboard">Projects </a> 
         <a href="/crear-proyecto">Create Project </a>
         <a href="/perfil">Profile</a>
 
