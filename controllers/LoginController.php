@@ -135,7 +135,17 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
 
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') { //Para el post del Login
-            
+            //Añadir  nuevo password 
+            $usuario->sincronizar($_POST);
+
+            //Validar el password
+            $alertas = $usuario->validarPassword();
+
+            if (empty($alertas)) {
+                //Hashear el nuevo password
+
+                
+            }
         }
 
         $alertas = Usuario::getAlertas();

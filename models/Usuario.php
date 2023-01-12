@@ -54,6 +54,21 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
+    //Valida el password a reestablecer 
+
+    public function validarPassword() {
+        if (!$this->password) {
+            self::$alertas['error'][] = 'Password cannot be empty';
+        }
+        if (strlen($this->password) < 6) {
+            self::$alertas['error'][] = 'Password must contain at least 6 characters';
+        }
+
+        return self::$alertas;
+    }
+
+    
+
     //Hashea el password
     public function hashPassword() {
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
