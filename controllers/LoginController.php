@@ -117,13 +117,34 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
     }
 
     public static function reestablecer(Router $router){
+
+        $token = s($_GET['token']);
+        $mostrar = true;
+
+
+        if (!$token) header('Location: /');
+
+        //Identificar el usuario con este token
+
+        $usuario = Usuario::where('token', $token);
+
+        if (empty($usuario)) {
+            Usuario::setAlerta('error', 'Invalid Token');
+            $mostrar = false;
+        }
+
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') { //Para el post del Login
             
         }
 
+        $alertas = Usuario::getAlertas();
+
         //Muestra la vista
         $router->render('auth/reestablecer', [
-            'titulo' => 'Reset password'
+            'titulo' => 'Reset password',
+            'alertas' => $alertas,
+            'mostrar' => $mostrar
         ]);
     }
 
