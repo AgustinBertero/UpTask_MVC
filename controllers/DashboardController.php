@@ -16,6 +16,20 @@ class DashboardController {
         ]);
 
     }
+
+    public static function crear_proyecto(Router $router) {
+        session_start();
+        $router->render('dashboard/crear-proyecto', [
+            'titulo' => 'Create Project'
+        ]);
+    }
+
+    public static function perfil(Router $router) {
+        session_start();
+        $router->render('dashboard/perfil', [
+            'titulo' => 'Profile'
+        ]);
+    }
 }
 
 ?>
