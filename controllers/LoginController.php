@@ -143,8 +143,18 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
 
             if (empty($alertas)) {
                 //Hashear el nuevo password
+                $usuario->hashPassword();
 
-                
+                //Eliminar el token
+                $usuario->token = null;
+
+                //Guardar el usuario en la BD
+                $resultado = $usuario->guardar();
+
+                //Redireccionar 
+                if ($resultado) {
+                    header('Location:/');
+                }
             }
         }
 
