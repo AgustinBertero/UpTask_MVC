@@ -13,7 +13,7 @@ $router = new Router();
 
 $router->get('/',[LoginController::class, 'login']);
 $router->post('/',[LoginController::class, 'login']);
-$router->get('logout',[LoginController::class, 'logout']); //Ruta del logout
+$router->get('/logout',[LoginController::class, 'logout']); //Ruta del logout
 
 //Crear cuenta
 
