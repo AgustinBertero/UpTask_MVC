@@ -21,6 +21,24 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
                 if (!$usuario || !$usuario->confirmado ) {
                     Usuario::setAlerta('error', 'The user dont exist or is not confirmed');
                
+                } else {
+                    //El usuario existe
+                    if (password_verify($_POST['password'], $usuario->password)) { // El password es correcto 
+                        //Iniciar la sesion 
+                        session_start();
+                        $_SESSION['id'] = $usuario->id;
+                        $_SESSION['nombre'] = $usuario->nombre;
+                        $_SESSION['email'] = $usuario->email;
+                        $_SESSION['login'] = true;
+
+                        //Redireccionar 
+                        header('Location: /proyectos');
+
+                        debuguear($_SESSION);
+                    } else {
+                        Usuario::setAlerta('error', 'Wrong password');
+                    }
+
                 }
             }
     }
@@ -36,7 +54,7 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
     }
 
     public static function logout(){
-        echo "Desde login";
+        echo "Desde logout";
 
     }
 
