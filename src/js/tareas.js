@@ -1,8 +1,52 @@
 
 (function(){ //IIFE = PARA ENCERRAR VARIABLES EN ESTE ARCHIVO Y NO PUEDA LEERSE EN OTROS
+
+    obtenerTareas();
+    
+    
     //Boton para mostrar el modal de Agregar Tarea
     const nuevaTareaBtn = document.querySelector('#agregar-tarea'); //Selecciono el boton
     nuevaTareaBtn.addEventListener('click', mostrarFormulario);
+
+
+    async function obtenerTareas(){
+        try {
+            const id = obtenerProyecto();
+            const url = `/api/tareas?id=${id}`;
+            const respuesta = await fetch(url);
+            const resultado = await respuesta.json();
+            
+            const {tareas} = resultado;
+            mostrarTareas(tareas);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function mostrarTareas(tareas) {
+        if (tareas.length === 0) { //Si no hay tareas 
+            const contenedorTareas = document.querySelector('#listado-tareas');
+            const textoNoTareas = document.createElement('LI');
+            textoNoTareas.textContent = 'No tasks';
+            textoNoTareas.classList.add('no-tareas');
+            contenedorTareas.appendChild(textoNoTareas);
+            return;
+        }
+
+        tareas.forEach(tarea => { //Si hay tareas itero sobre ellas y creo LI
+            const contenedorTarea = document.createElement('LI');
+            contenedorTarea.dataset.tareaId = tarea.id;
+            contenedorTarea.classList.add('tarea');
+
+            const nombreTarea = document.createElement('P');
+            nombreTarea.textContent = tarea.nombre;
+
+            console.log(nombreTarea);
+        });
+    }
+
+
+
 
     function mostrarFormulario() {
         const modal = document.createElement('DIV'); //Creo un div cuando apretan Nueva Tarea = modal
