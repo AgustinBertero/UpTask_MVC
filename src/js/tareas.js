@@ -90,6 +90,9 @@
         //Construir la peticion
         const datos = new FormData();
         datos.append('nombre', tarea);
+        datos.append('proyectoId', obtenerProyecto()); //Leemos la url y la agregamos al FormData 
+
+    
 
         try {
             const url = 'http://localhost:3000/api/tarea';
@@ -104,6 +107,12 @@
         } catch (error) {
             console.log(error);
         }
+    }
+
+    function obtenerProyecto(){ //Lee la url y retorna el ID del proyecto
+        const proyectoParams = new URLSearchParams(window.location.search);
+        const proyecto = Object.fromEntries(proyectoParams.entries());
+        return proyecto.id;
     }
 })();
 
