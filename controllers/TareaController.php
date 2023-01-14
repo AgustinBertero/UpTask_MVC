@@ -2,6 +2,8 @@
 
 namespace Controllers;
 
+use JsonException;
+
 class TareaController {
     public static function index(){
 
@@ -9,16 +11,21 @@ class TareaController {
 
     public static function crear(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            # code...
+            
+            echo json_encode($_POST);
         }
     }
 
     public static function actualizar(){
-        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
+        }
     }
 
     public static function eliminar(){
-        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
+        }
     }
 
 }
