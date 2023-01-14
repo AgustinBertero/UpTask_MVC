@@ -32,6 +32,20 @@
             formulario.classList.add('animar');
         }, 0);
 
+        modal.addEventListener('click',function(e){
+            e.preventDefault(); //No permite que se ejecute la funcion por default
+
+            if (e.target.classList.contains('cerrar-modal')) { //Click boton cancel .cerrar-modal
+                const formulario =  document.querySelector('.formulario');
+                formulario.classList.add('cerrar'); //Class para animar con css
+                setTimeout(() => { //Animacion
+                    modal.remove(); //Elimino la ventana modal
+                }, 500);
+            }
+            
+
+        })
+
         document.querySelector('body').appendChild(modal); //Agrego el div(modal) al body
     }
 
