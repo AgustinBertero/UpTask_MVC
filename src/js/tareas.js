@@ -1,4 +1,3 @@
-
 (function(){ //IIFE = PARA ENCERRAR VARIABLES EN ESTE ARCHIVO Y NO PUEDA LEERSE EN OTROS
 
     obtenerTareas();
@@ -33,7 +32,12 @@
             return;
         }
 
-        tareas.forEach(tarea => { //Si hay tareas itero sobre ellas y creo LI
+        const estados = {
+            0: 'Pending',
+            1: 'Complete'
+        }
+
+        tareas.forEach(tarea => { //Si hay tareas itero sobre ellas y las muestro
             const contenedorTarea = document.createElement('LI');
             contenedorTarea.dataset.tareaId = tarea.id;
             contenedorTarea.classList.add('tarea');
@@ -41,7 +45,29 @@
             const nombreTarea = document.createElement('P');
             nombreTarea.textContent = tarea.nombre;
 
-            console.log(nombreTarea);
+            const opcionesDiv = document.createElement('DIV');
+            opcionesDiv.classList.add('opciones');
+
+            //Botones 
+            const btnEstadoTarea = document.createElement('BUTTON');
+            btnEstadoTarea.classList.add('estado-tarea');
+            btnEstadoTarea.classList.add(`${estados[tarea.estado].toLowerCase()}`)
+            btnEstadoTarea.textContent = estados[tarea.estado];
+            btnEstadoTarea.dataset.estadoTarea = tarea.estado;
+
+            const btnEliminarTarea = document.createElement('BUTTON');
+            btnEliminarTarea.classList.add('eliminar-tarea');
+            btnEliminarTarea.dataset.idTarea = tarea.id;
+            btnEliminarTarea.textContent = 'Delete';
+
+            opcionesDiv.appendChild(btnEstadoTarea); // Agrego el boton
+            opcionesDiv.appendChild(btnEliminarTarea); 
+
+            contenedorTarea.appendChild(nombreTarea);
+            contenedorTarea.appendChild(opcionesDiv);
+
+            const listadoTareas = document.querySelector('#listado-tareas');
+            listadoTareas.appendChild(contenedorTarea);
         });
     }
 
