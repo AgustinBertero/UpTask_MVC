@@ -12,6 +12,7 @@
 <body>
     <!-- Layout general de la pag -->
     <?php echo $contenido; ?>
+    
     <?php echo $script ?? ''; ?>
 
 </body>
