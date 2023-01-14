@@ -27,6 +27,11 @@
         </form> 
         `;
 
+        setTimeout(() => { //Animacion al modal
+            const formulario =  document.querySelector('.formulario');
+            formulario.classList.add('animar');
+        }, 0);
+
         document.querySelector('body').appendChild(modal); //Agrego el div(modal) al body
     }
 
