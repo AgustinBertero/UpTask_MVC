@@ -9,6 +9,19 @@ use Model\Tarea;
 class TareaController {
     public static function index(){
 
+            $proyectoId = $_GET['id'];
+
+            if (!$proyectoId) header('Location : /');
+
+            $proyecto = Proyecto::where('url', $proyectoId);
+            
+        session_start();
+
+            if (!$proyecto || $proyecto->propietarioId !== $_SESSION['id']) header('Location: /404');
+
+        $tareas = Tarea::belongsTo('proyectoId', $proyecto->id);
+
+        echo json_encode(['tareas' => $tareas]); //Creo un JSON con las tareas del proyecto
     }
 
     public static function crear(){
