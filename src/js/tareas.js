@@ -227,7 +227,18 @@
 
             if (resultado.respuesta.tipo === 'exito'){
                 mostrarAlerta(resultado.respuesta.mensaje,resultado.respuesta.tipo,document.querySelector('.contenedor-nueva-tarea'));
-            }    
+            };
+            
+            tareas = tareas.map(tareaMemoria => { //Cambiando el Estado de la tarea en el VirtualDOM
+                if (tareaMemoria.id === id) {
+                    tareaMemoria.estado = estado;
+                }
+
+                return tareaMemoria;
+            });
+
+            mostrarTareas();
+        
         } catch (error) {
             console.log(error);
         }
