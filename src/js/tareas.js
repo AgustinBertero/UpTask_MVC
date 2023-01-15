@@ -225,7 +225,9 @@
             });
             const resultado = await respuesta.json();
 
-            console.log(respuesta);
+            if (resultado.respuesta.tipo === 'exito'){
+                mostrarAlerta(resultado.respuesta.mensaje,resultado.respuesta.tipo,document.querySelector('.contenedor-nueva-tarea'));
+            }    
         } catch (error) {
             console.log(error);
         }

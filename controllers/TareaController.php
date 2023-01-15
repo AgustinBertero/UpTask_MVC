@@ -56,9 +56,39 @@ class TareaController {
             echo json_encode($respuesta);
     }
  }
+
+
     public static function actualizar(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
+            //Validar que el proyecto exista 
+            $proyecto = Proyecto::where('url', $_POST['proyectoId']);
+
+            session_start();
+
+            if (!$proyecto || $proyecto->propietarioId !== $_SESSION['id']) { //Si no hay un proyecto o si no es el propietario
+                $respuesta = [
+                    'tipo' => 'error', 
+                    'mensaje' => 'Error updating the task'
+                ];
+                echo json_encode($respuesta);
+                return;
+            }
+
+            $tarea = new Tarea($_POST);
+            $tarea->proyectoId = $proyecto->id;
+
+            $resultado = $tarea->guardar();
+
+            if ($resultado) {
+                $respuesta = [
+                    'tipo' => 'exito',
+                    'id' => $tarea->id,
+                    'proyecotId' => $proyecto->id,
+                    'mensaje' => 'Correctly updated'
+                ]; 
+
+                echo json_encode(['respuesta' => $respuesta]);
+            }         
         }
     }
 
