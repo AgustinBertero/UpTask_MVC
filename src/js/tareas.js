@@ -264,12 +264,38 @@
 
     async function eliminarTarea(tarea) {
 
+        const {estado, id, nombre} = tarea;
+        
         const datos = new FormData();
-
+        datos.append('id',id);
+        datos.append('nombre',nombre);
+        datos.append('estado',estado);
+        datos.append('proyectoId',obtenerProyecto());
 
         try {
-            
-        } catch (error) {
+
+            const url = 'http://localhost:3000/api/tarea/eliminar';
+            const respuesta = await fetch(url, {
+                method: 'POST',
+                body: datos
+            });
+
+            const resultado = await respuesta.json();
+
+            if (resultado.resultado) {
+            //     mostrarAlerta(resultado.mensaje, 
+            //         resultado.tipo,
+            //         document.querySelector('.contenedor-nueva-tarea'));
+
+            Swal.fire('Removed!', resultado.mensaje, 'success');
+
+
+
+            tareas = tareas.filter(tareaMemoria => tareaMemoria.id !== tarea.id); //Elimina las tareas en el DOM, porque trae todas los que no elimine
+
+            mostrarTareas(); //Muestro para actualizar el DOM con las tareas eliminadas
+            }
+         } catch (error) {
             
         }
     }
