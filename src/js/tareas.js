@@ -6,7 +6,9 @@
     
     //Boton para mostrar el modal de Agregar Tarea
     const nuevaTareaBtn = document.querySelector('#agregar-tarea'); //Selecciono el boton
-    nuevaTareaBtn.addEventListener('click', mostrarFormulario);
+    nuevaTareaBtn.addEventListener('click', function(){
+        mostrarFormulario();
+    });
 
 
     async function obtenerTareas(){
@@ -46,6 +48,9 @@
 
             const nombreTarea = document.createElement('P');
             nombreTarea.textContent = tarea.nombre;
+            nombreTarea.ondblclick = function() { //Para cambiar el nombre de la tarea
+                mostrarFormulario(editar = true, tarea);
+            }
 
             const opcionesDiv = document.createElement('DIV');
             opcionesDiv.classList.add('opciones');
@@ -82,24 +87,28 @@
 
 
 
-    function mostrarFormulario() {
+    function mostrarFormulario(editar = false, tarea = {}) {
         const modal = document.createElement('DIV'); //Creo un div cuando apretan Nueva Tarea = modal
         modal.classList.add('modal');
         //Agrego contenido al DIV creado de Nueva Tarea, con template string
         modal.innerHTML = `   
         <form class="formulario nueva-tarea">
-            <legend> Add a new task </legend>
+            <legend>${editar ? 'Edit task' : 'Add a new task'} </legend>
                 <div class="campo">
                     <label>Task</label>
                     <input
                     type="text"
                     name="tarea"
-                    placeholder="Add a new task to project"
+                    placeholder= "${tarea.nombre ? 'Edit the task' : 'Add a new task to project' } "
                     id="tarea"
+                    value= "${tarea.nombre ? tarea.nombre : '' }"
                     />
                 </div>
                 <div class="opciones">
-                    <input type="submit" class="submit-nueva-tarea" value="Add Task"/>
+                    <input 
+                    type="submit" 
+                    class="submit-nueva-tarea" 
+                    value="${tarea.nombre ? 'Save changes' : 'Add a new task'}"/>
                     <button type="button" class="cerrar-modal">Cancel</button>
                 </div>
         </form> 
