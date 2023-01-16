@@ -118,7 +118,7 @@
                 formulario.classList.add('cerrar'); //Class para animar con css
                 setTimeout(() => { //Animacion
                     modal.remove(); //Elimino la ventana modal
-                }, 500);
+                }, 100);
             }
             if (e.target.classList.contains('submit-nueva-tarea')) {
                 submitFormularioNuevaTarea();
@@ -187,7 +187,7 @@
                 const modal = document.querySelector('.modal');
                 setTimeout(() => {
                     modal.remove();
-                }, 3000);   
+                }, 1000);   
 
                 //Agregar el objeto de tarea al global de tareas
                 const tareaObj = {
