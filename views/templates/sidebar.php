@@ -15,4 +15,9 @@
         <a class="<?php echo ($titulo === 'Profile') ? 'activo' : ''; ?>"  href="/perfil">Profile</a>
 
     </nav>
+
+    <div class="cerrar-sesion-mobile">
+        <a href="/logout" class="cerrar-sesion">Log out</a>
+
+    </div>
 </aside>
