@@ -13,6 +13,8 @@ class Usuario extends ActiveRecord {
         $this->email = $args['email'] ?? '';
         $this->password = $args['password'] ?? '';
         $this->password2 = $args['password2'] ?? '';
+        $this->password_actual = $args['password_actual'] ?? '';
+        $this->password_nuevo = $args['password_nuevo'] ?? '';
         $this->token = $args['token'] ?? '';
         $this->confirmado = $args['confirmado'] ?? 0;
 
@@ -96,7 +98,19 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
-    
+    //Valido el cambio de password
+    public function nuevo_password(){
+        if(!$this->password_actual) {
+            self::$alertas['error'][] = 'The current password cannot be empty';
+        }
+        if(!$this->password_nuevo) {
+            self::$alertas['error'][] = 'The new password cannot be empty';
+        }
+        if(strlen($this->password_nuevo) < 6) {
+            self::$alertas['error'][] = 'The password must contain at least 6 characters';
+        }
+        return self::$alertas;
+    }
 
     //Hashea el password
     public function hashPassword() {

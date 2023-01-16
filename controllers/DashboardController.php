@@ -125,6 +125,21 @@ class DashboardController {
         isAuth();
         $alertas = [];
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $usuario = Usuario::find($_SESSION['id']);
+
+
+            //Sincronizar con los datos del usuario
+            $usuario->sincronizar($_POST);
+
+            $alertas = $usuario->nuevo_password();
+
+            if (empty($alertas)) { //Si no hay alertas, introdujo bien los password
+                
+            }
+
+        }
+
 
         $router->render('dashboard/cambiar-password', [
             'titulo' => 'Change Password',
