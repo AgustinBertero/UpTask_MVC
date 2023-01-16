@@ -10,8 +10,43 @@
         &#43; New task</button>
     </div>
 
-    <ul id="listado-tareas"  class="listado-tareas">
+    <div id="filtros" class="filtros">
+        <div class="filtros-input">
+            <h2>Filters:</h2>
+            <div class="campo">
+                <label for="todas">All</label>
+                <input 
+                type="radio"
+                id="todas"
+                name="filter"
+                value=""
+                checked    
+                >
+            </div>
 
+            <div class="campo">
+                <label for="completadas">Completed</label>
+                <input 
+                type="radio"
+                id="completadas"
+                name="filter"
+                value="1" 
+                >
+            </div>
+
+            <div class="campo">
+                <label for="pendientes">Pending</label>
+                <input 
+                type="radio"
+                id="pendientes"
+                name="filter"
+                value="0" 
+                >
+            </div>
+        </div>
+    </div>
+
+    <ul id="listado-tareas"  class="listado-tareas">
 
     </ul>
 </div>
