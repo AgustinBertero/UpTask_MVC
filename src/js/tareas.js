@@ -49,7 +49,7 @@
             const nombreTarea = document.createElement('P');
             nombreTarea.textContent = tarea.nombre;
             nombreTarea.ondblclick = function() { //Para cambiar el nombre de la tarea
-                mostrarFormulario(editar = true, tarea);
+                mostrarFormulario(editar = true, {...tarea});
             }
 
             const opcionesDiv = document.createElement('DIV');
@@ -130,23 +130,25 @@
                 }, 100);
             }
             if (e.target.classList.contains('submit-nueva-tarea')) {
-                submitFormularioNuevaTarea();
+                const nombreTarea = document.querySelector('#tarea').value.trim(); // El nombre que el usuario le de a la nueva tarea
+
+                if (nombreTarea === '') {
+                    //Mostrar alerta de error 
+                    mostrarAlerta('The name of task is required', 'error', document.querySelector('.formulario legend'));
+                    return;
+                }
+
+                if (editar) { //Si editar = true 
+                    tarea.nombre = nombreTarea;
+                    actualizarTarea(tarea);
+                } else { //Si editar = false, significa que estoy agregando tarea
+                    agregarTarea(nombreTarea);
+                }
+
             }
         })
 
         document.querySelector('.dashboard').appendChild(modal); //Agrego el div(modal) al body
-    }
-
-    function submitFormularioNuevaTarea() {
-        const tarea = document.querySelector('#tarea').value.trim(); // El nombre que el usuario le de a la nueva tarea
-
-        if (tarea === '') {
-            //Mostrar alerta de error 
-            mostrarAlerta('The name of task is required', 'error', document.querySelector('.formulario legend'));
-            return;
-        }
-
-        agregarTarea(tarea);
     }
 
     //Muestra mensaje en la interfaz
