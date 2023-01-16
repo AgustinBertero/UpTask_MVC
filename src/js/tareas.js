@@ -2,6 +2,7 @@
 
     obtenerTareas();
     let tareas = [];
+    let filtradas = [];
     
     
     //Boton para mostrar el modal de Agregar Tarea
@@ -10,6 +11,24 @@
         mostrarFormulario();
     });
 
+
+    //Filtros de busqueda 
+    const filtros = document.querySelectorAll('#filtros input[type="radio"');
+    filtros.forEach(radio => {
+        radio.addEventListener('input', filtrarTareas);
+    })
+
+    function filtrarTareas(e){
+        const filtro = e.target.value;
+
+        if (filtro !== '') { //Si tiene un valor hay que filtrar sino se muestran todas
+           filtradas = tareas.filter(tarea => tarea.estado === filtro); //Filtro las completas y pendientes
+        } else {
+            filtradas = [];
+        }
+
+        mostrarTareas(); //Despues de filtrar, muestro
+    }
 
     async function obtenerTareas(){
         try {
@@ -27,7 +46,10 @@
 
     function mostrarTareas() {
         limpiarTareas();
-        if (tareas.length === 0) { //Si no hay tareas 
+
+        const arrayTareas = filtradas.length ? filtradas : tareas;
+
+        if (arrayTareas.length === 0) { //Si no hay tareas 
             const contenedorTareas = document.querySelector('#listado-tareas');
             const textoNoTareas = document.createElement('LI');
             textoNoTareas.textContent = 'No tasks';
@@ -41,7 +63,7 @@
             1: 'Complete'
         }
 
-        tareas.forEach(tarea => { //Si hay tareas itero sobre ellas y las muestro
+        arrayTareas.forEach(tarea => { //Si hay tareas itero sobre ellas y las muestro
             const contenedorTarea = document.createElement('LI');
             contenedorTarea.dataset.tareaId = tarea.id;
             contenedorTarea.classList.add('tarea');
