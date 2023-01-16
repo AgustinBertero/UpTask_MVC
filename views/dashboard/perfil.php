@@ -4,7 +4,7 @@
 <div class="contenedor-sm">
     <?php include_once __DIR__ . '/../templates/alertas.php' ?>
 
-    <form action="" class="formulario" method="POST">
+    <form action="/perfil" class="formulario" method="POST">
         <div class="campo">
             <label for="nombre">Name</label>
             <input 
