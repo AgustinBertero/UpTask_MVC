@@ -1,5 +1,5 @@
-(function(){ //IIFE = PARA ENCERRAR VARIABLES EN ESTE ARCHIVO Y NO PUEDA LEERSE EN OTROS
-
+(function(){ //IIFE = PARA proteger las variables y no se mezclen con otros scripts
+    
     obtenerTareas();
     let tareas = [];
     let filtradas = [];

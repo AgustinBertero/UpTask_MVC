@@ -1,5 +1,6 @@
+public/build/js
 build/
-src/
+src/scss
 vendor/
 uptask_mvc.sql
 node_modules/
@@ -138,3 +139,5 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+public/build/css/app.css.map
+public/build/css/app.css
