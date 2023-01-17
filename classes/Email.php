@@ -24,7 +24,7 @@ class Email {
         $mail->SMTPAuth = true;
         $mail->Port = 587;
         $mail->Username = 'agustinbertero.dev@gmail.com';
-        $mail->Password = 'xsmtpsib-181b6adc53a640b226417b4318fef57fb395055e53083a53656113cd2fe8ea66-O5f6j02A9TvzVG7p';
+        $mail->Password = 'xsmtpsib-181b6adc53a640b226417b4318fef57fb395055e53083a53656113cd2fe8ea66-MEOCryRcjah4Lpq9';
 
         $mail->setFrom('cuentas@uptask.com');
         $mail->addAddress($this->email);
