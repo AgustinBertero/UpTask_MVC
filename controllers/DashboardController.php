@@ -135,14 +135,22 @@ class DashboardController {
             $alertas = $usuario->nuevo_password();
 
             if (empty($alertas)) { //Si no hay alertas, introdujo bien los password
+                $resultado = $usuario->comprobar_password(); //Retorna true o false
                 
-            }
+                if ($resultado) { //Paso la validacion
+                    //Asignar un nuevo password 
 
+                } else {
+                    Usuario::setAlerta('error','Wrong password');
+                    $alertas = $usuario->getAlertas();
+                }
+              }
         }
 
 
         $router->render('dashboard/cambiar-password', [
             'titulo' => 'Change Password',
+            'alertas' => $alertas
 
         ]);
     }

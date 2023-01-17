@@ -99,7 +99,7 @@ class Usuario extends ActiveRecord {
     }
 
     //Valido el cambio de password
-    public function nuevo_password(){
+    public function nuevo_password() : array{
         if(!$this->password_actual) {
             self::$alertas['error'][] = 'The current password cannot be empty';
         }
@@ -112,13 +112,19 @@ class Usuario extends ActiveRecord {
         return self::$alertas;
     }
 
+    //Comprobar el password 
+    public function comprobar_password() : bool { //Usamos el tipado de PHP: debe retornar un bool
+        return password_verify($this->password_actual, $this->password);
+    }
+
+
     //Hashea el password
-    public function hashPassword() {
+    public function hashPassword() : void { //Void: no retorna nada
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
     }
 
     //Generar un Token 
-    public function crearToken(){
+    public function crearToken(): void {
         $this->token = uniqid(); //uniqid genera un token, no usar para hashear password
     }
 
