@@ -217,6 +217,7 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
     public static function confirmar(Router $router){
 
         $token = s($_GET['token']);
+        $alertas = [];
 
        if (!$token) header('Location: /');
 
@@ -229,7 +230,7 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
        } else {
         //Confirmar la cuenta
             $usuario->confirmado = 1;
-            $usuario->token = null;
+            $usuario->token = '';
             unset($usuario->passoword2);
 
             //Guardar en la BD
@@ -241,7 +242,8 @@ class LoginController { //Controlador de authenticacion que tiene cada metodo ad
        $alertas = Usuario::getAlertas();
 
         $router->render('auth/confirmar', [
-            'titulo' => 'Confirm your UpTask account'
+            'titulo' => 'Confirm your UpTask account',
+            'alertas' => $alertas
         ]);
     }
 
